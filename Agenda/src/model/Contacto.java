@@ -72,7 +72,7 @@ public class Contacto {
     }    
     
     //Método Devolver <Cadena Validada>
-    public static String CadValida(String cadena,int tam){
+    public static String formateaCadena(String cadena,int tam){
         String cadVal;
         cadVal=cadena;
         int falta;
@@ -91,7 +91,5 @@ public class Contacto {
         return cadVal;
     }
     
-    public static void main(String[] args) {        
-        System.out.println(CadValida("angeles",4));
-    }
+    
 }

@@ -12,7 +12,7 @@ import util.Helper;
  * @author Hugo
  */
 public class Contacto {
-    
+
     private String nombre;
     private String[] telefonos;
 
@@ -47,8 +47,8 @@ public class Contacto {
     public void setTelefonos(String[] telefonos) {
         this.telefonos = telefonos;
     }
-    
-    public static Contacto leerContactoPorConsola(){
+
+    public static Contacto leerContactoPorConsola() {
         Contacto contacto;
         String nombre;
         String telefonos;
@@ -57,14 +57,32 @@ public class Contacto {
         telefonos = Helper.leerCadena("Telefonos: ");
         token = new StringTokenizer(telefonos, " ");
         System.out.println(telefonos);
-        String arrayTelefonos[]= {token.nextToken(), token.nextToken(), token.nextToken()};
-        contacto = new Contacto(nombre, arrayTelefonos );
+        String arrayTelefonos[] = {token.nextToken(), token.nextToken(), token.nextToken()};
+        contacto = new Contacto(nombre, arrayTelefonos);
         return contacto;
     }
 
     @Override
     public String toString() {
         return "Nombre: " + this.nombre + " Tel1: " + this.telefonos[0] + " Tel2: " + this.telefonos[1] + " Tel3: " + this.telefonos[2];
-    }     
-    
+    }
+
+    @Override
+    public int hashCode() {
+        int indice;
+        double numero;
+        numero = Double.parseDouble(this.nombre.trim());
+        indice = (int) numero % 101;
+        return indice;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Contacto) {
+            Contacto contacto = (Contacto) obj;
+            return this.nombre.trim().equals(contacto.getNombre().trim());
+        }else{
+            return false;
+        }
+    }
 }

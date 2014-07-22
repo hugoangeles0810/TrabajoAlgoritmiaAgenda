@@ -70,5 +70,29 @@ public class Contacto {
     public String toString() {
         return "Nombre: " + this.nombre + " Tel1: " + this.telefonos[0] + " Tel2: " + this.telefonos[1] + " Tel3: " + this.telefonos[2];
     }   
+        
     
+    //Método Devolver <Cadena Validada>
+    public static String CadValida(String cadena,int tam){
+        String cadVal;
+        cadVal=cadena;
+        int falta;
+        int i=0;
+        if((cadena.length())<tam){
+            falta=tam-cadena.length();
+            while(i<falta){
+                cadVal=cadVal+"-";
+                i++;
+            }            
+        }             
+        if((cadena.length())>tam){
+            cadVal=cadena.substring(0, tam);
+        }
+        
+        return cadVal;
+    }
+    
+    public static void main(String[] args) {        
+        System.out.println(CadValida("angeles",4));
+    }
 }

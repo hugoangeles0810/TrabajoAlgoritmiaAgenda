@@ -19,8 +19,8 @@ public class Contacto {
     public Contacto() {
         this.nombre = "                    ";
         this.telefonos = new String[3];
-        for (String tel : telefonos) {
-            tel = "         ";
+        for (int i = 0; i < telefonos.length; i++) {
+            this.telefonos[i] = "         ";
         }
     }
 
@@ -69,8 +69,7 @@ public class Contacto {
     @Override
     public String toString() {
         return "Nombre: " + this.nombre + " Tel1: " + this.telefonos[0] + " Tel2: " + this.telefonos[1] + " Tel3: " + this.telefonos[2];
-    }   
-        
+    }    
     
     //Método Devolver <Cadena Validada>
     public static String CadValida(String cadena,int tam){

@@ -131,4 +131,16 @@ public class Helper {
         
         return cadVal;
     }
+//    public static String[] ProcesarTelefonos(String cadena){
+//        String []ArregloTelefonos;
+//        ArregloTelefonos=new String[3];
+//        
+//        
+//        
+//        
+//        
+//        return ArregloTelefonos;
+//    }
+            
+            
 }

@@ -55,12 +55,15 @@ public class Contacto {
     public static Contacto leerContactoPorConsola() {
         Contacto contacto;
         String nombre;
-        String telefonos;
-        StringTokenizer token;
+        String telefono1,telefono2,telefono3;
+        //StringTokenizer token;
         nombre = Helper.leerCadena("Nombre: ");
-        telefonos = Helper.leerCadena("Telefonos: ");
-        token = new StringTokenizer(telefonos, " ");
-        String arrayTelefonos[] = {token.nextToken(), token.nextToken(), token.nextToken()};
+        telefono1 = Helper.leerCadena("Telefono 1: ");
+        telefono2 = Helper.leerCadena("Telefono 2: ");
+        telefono3 = Helper.leerCadena("Telefono 3: ");
+        //token = new StringTokenizer(telefonos, " ");
+       // String arrayTelefonos[] = {token.nextToken(), token.nextToken(), token.nextToken()};
+        String arrayTelefonos[] = {telefono1,telefono2,telefono3};
         contacto = new Contacto(nombre, arrayTelefonos);
         return contacto;
     }

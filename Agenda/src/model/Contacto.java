@@ -30,6 +30,10 @@ public class Contacto {
         this.telefonos[0] = Helper.formateaCadenaConEspacios(telefonos[0], 9);
         this.telefonos[1] = Helper.formateaCadenaConEspacios(telefonos[1], 9);
         this.telefonos[2] = Helper.formateaCadenaConEspacios(telefonos[2], 9);
+//        System.out.println("Nombre: " + this.nombre);
+//        for (String tel : this.telefonos) {
+//            System.out.println("Tel: "+tel+" Length: "+ tel.length());
+//        }
     }
 
     public String getNombre() {
@@ -56,7 +60,6 @@ public class Contacto {
         nombre = Helper.leerCadena("Nombre: ");
         telefonos = Helper.leerCadena("Telefonos: ");
         token = new StringTokenizer(telefonos, " ");
-        System.out.println(telefonos);
         String arrayTelefonos[] = {token.nextToken(), token.nextToken(), token.nextToken()};
         contacto = new Contacto(nombre, arrayTelefonos);
         return contacto;
@@ -70,9 +73,14 @@ public class Contacto {
     @Override
     public int hashCode() {
         int indice;
-        double numero;
-        numero = Double.parseDouble(this.nombre.trim());
-        indice = (int) numero % 101;
+        int numero;
+        char car;
+        numero = 0;
+        for (int i = 0; i < this.nombre.trim().length(); i++) {
+            car = this.nombre.charAt(i);
+            numero = numero + car;
+        }
+        indice = numero % 101;
         return indice;
     }
 

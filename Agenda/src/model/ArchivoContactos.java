@@ -18,13 +18,13 @@ public class ArchivoContactos {
     private static final String PATH;
     private static final String NOMBRE_ARCHIVO;
     private static final int TAMAÑO_REGISTRO;
-    private static final int NUMERO_REGISTROS;
+    public static final int NUMERO_REGISTROS;
     private static RandomAccessFile flujoInputOutput;
 
     static {
         PATH = "D:/";
         NOMBRE_ARCHIVO = "data.dat";
-        TAMAÑO_REGISTRO = 55;
+        TAMAÑO_REGISTRO = 47;
         NUMERO_REGISTROS = 101;
         try {
             flujoInputOutput = new RandomAccessFile(PATH + NOMBRE_ARCHIVO, "rw");
@@ -48,35 +48,35 @@ public class ArchivoContactos {
             Helper.notificar("Error al desplazarse por el archivo");
         }
         try {
-            flujoInputOutput.writeChars(con.getNombre());
-            flujoInputOutput.writeChars(con.getTelefonos()[0]);
-            flujoInputOutput.writeChars(con.getTelefonos()[1]);
-            flujoInputOutput.writeChars(con.getTelefonos()[2]);
-        } catch (IOException ex) {
+            escribeCadena(con.getNombre());
+            escribeCadena(con.getTelefonos()[0]);
+            escribeCadena(con.getTelefonos()[1]);
+            escribeCadena(con.getTelefonos()[2]);
+        } catch (Exception ex) {
             Helper.notificar("Error al escribir en el archivo");
         }
     }
 
     private static void escribeContacto(Contacto con) {
         try {
-            flujoInputOutput.writeUTF(con.getNombre());
-            flujoInputOutput.writeUTF(con.getTelefonos()[0]);
-            flujoInputOutput.writeUTF(con.getTelefonos()[1]);
-            flujoInputOutput.writeUTF(con.getTelefonos()[2]);
-        } catch (IOException ex) {
+            escribeCadena(con.getNombre());
+            escribeCadena(con.getTelefonos()[0]);
+            escribeCadena(con.getTelefonos()[1]);
+            escribeCadena(con.getTelefonos()[2]);
+        } catch (Exception ex) {
             Helper.notificar("Error al escribir en el archivo");
         }
     }
 
-    private static Contacto leerContacto(int nrr) {
+    public static Contacto leerContacto(int nrr) {
         Contacto contacto;
         String nombre, tel1, tel2, tel3;
         try {
             flujoInputOutput.seek(TAMAÑO_REGISTRO * nrr);
-            nombre = flujoInputOutput.readUTF();
-            tel1 = flujoInputOutput.readUTF();
-            tel2 = flujoInputOutput.readUTF();
-            tel3 = flujoInputOutput.readUTF();
+            nombre = leerCadena(20);
+            tel1 = leerCadena(9);
+            tel2 = leerCadena(9);
+            tel3 = leerCadena(9);
             String telefonos[] = {tel1, tel2, tel3};
             contacto = new Contacto(nombre, telefonos);
         } catch (IOException ex) {
@@ -86,7 +86,7 @@ public class ArchivoContactos {
         return contacto;
     }
 
-    private static int generarNRR(Contacto con) {
+    public static int generarNRR(Contacto con) {
         int nrr;
         nrr = con.hashCode();
         if (existeColision(nrr)) {
@@ -137,45 +137,83 @@ public class ArchivoContactos {
             flag = leerContacto(i);
             if (flag.getNombre().trim().equals("")) {
                 flag = null;
-            }else if(flag.equals(contactoBuscado)){
+            } else if (flag.equals(contactoBuscado)) {
                 break;
             }
             i++;
             if (i == TAMAÑO_REGISTRO) {
                 i = 0;
             }
-            
-        } while (flag != null && i!=nrr);
-        if (i==nrr) {
+
+        } while (flag != null && i != nrr);
+        if (i == nrr) {
             flag = null;
         }
         contactoDevuelto = flag;
         return contactoDevuelto;
     }
-    
+
     public static int obtenerNRR(String nombre) {
         Contacto contactoBuscado, flag;
-        int nrr, i;
+        int nrrFlag, i ,nrr;
         contactoBuscado = new Contacto();
         contactoBuscado.setNombre(nombre);
-        nrr = contactoBuscado.hashCode();
-        i = nrr;
+        nrrFlag = contactoBuscado.hashCode();
+        i = nrrFlag;
+        nrr = nrrFlag;
         do {
             flag = leerContacto(i);
             if (flag.getNombre().trim().equals("")) {
                 flag = null;
-            }else if(flag.equals(contactoBuscado)){
+                nrr = -1;
+            } else if (flag.equals(contactoBuscado)) {
+                nrr = i;
+                nrrFlag = -1;
                 break;
             }
             i++;
             if (i == TAMAÑO_REGISTRO) {
                 i = 0;
             }
-            
-        } while (flag != null && i!=nrr);
-        if (i==nrr) {
-            i = -1;
+
+        } while (flag != null && i != nrrFlag);
+        if (i == nrrFlag) {
+            nrr = -1;
         }
-        return i;
+        return nrr;
+    }
+
+    public static void cerrarConexion() {
+        try {
+            flujoInputOutput.close();
+            flujoInputOutput = null;
+        } catch (IOException ex) {
+        }
+    }
+    
+    public static String leerCadena(int len){
+        String cadena;
+        cadena = "";
+        char car;
+        
+        for (int i = 0; i < len; i++) {
+            try {
+                car = (char)flujoInputOutput.readByte();
+                cadena += car;
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return cadena;
+    }
+    
+    public static void escribeCadena(String cadena){
+        for (int i = 0; i < cadena.length(); i++) {
+            try {
+                flujoInputOutput.writeByte(cadena.charAt(i));
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }

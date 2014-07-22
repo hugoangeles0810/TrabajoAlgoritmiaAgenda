@@ -25,15 +25,11 @@ public class Contacto {
     }
 
     public Contacto(String nombre, String[] telefonos) {
-        if(nombre.length()>20) nombre = nombre.substring(0,20);
-        if(telefonos[0].length()>9) telefonos[0] = telefonos[0].substring(0, 9);
-        if(telefonos[1].length()>9) telefonos[1] = telefonos[1].substring(0, 9);
-        if(telefonos[2].length()>9) telefonos[2] = telefonos[2].substring(0, 9);
-        this.nombre = nombre;
+        this.nombre = Helper.formateaCadenaConEspacios(nombre, 20);
         this.telefonos = new String[3];
-        this.telefonos[0] = telefonos[0];
-        this.telefonos[1] = telefonos[1];
-        this.telefonos[2] = telefonos[2];
+        this.telefonos[0] = Helper.formateaCadenaConEspacios(telefonos[0], 9);
+        this.telefonos[1] = Helper.formateaCadenaConEspacios(telefonos[1], 9);
+        this.telefonos[2] = Helper.formateaCadenaConEspacios(telefonos[2], 9);
     }
 
     public String getNombre() {

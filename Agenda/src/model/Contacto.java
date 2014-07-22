@@ -67,4 +67,8 @@ public class Contacto {
         return "Nombre: " + this.nombre + " Tel1: " + this.telefonos[0] + " Tel2: " + this.telefonos[1] + " Tel3: " + this.telefonos[2];
     }     
     
+    public static void main(String[] args) {
+        leerContactoPorConsola();
+        
+    }
 }

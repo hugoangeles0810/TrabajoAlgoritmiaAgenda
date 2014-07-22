@@ -112,4 +112,23 @@ public class Helper {
         System.out.println(msg);
         System.out.println("-------------------------------------");
     }
+    
+    public static String formateaCadenaConEspacios(String cadena,int tam){
+        String cadVal;
+        cadVal=cadena;
+        int falta;
+        int i=0;
+        if((cadena.length())<tam){
+            falta=tam-cadena.length();
+            while(i<falta){
+                cadVal=cadVal+" ";
+                i++;
+            }            
+        }             
+        if((cadena.length())>tam){
+            cadVal=cadena.substring(0, tam);
+        }
+        
+        return cadVal;
+    }
 }

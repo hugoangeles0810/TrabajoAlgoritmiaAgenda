@@ -69,27 +69,6 @@ public class Contacto {
     @Override
     public String toString() {
         return "Nombre: " + this.nombre + " Tel1: " + this.telefonos[0] + " Tel2: " + this.telefonos[1] + " Tel3: " + this.telefonos[2];
-    }    
-    
-    //Método Devolver <Cadena Validada>
-    public static String formateaCadena(String cadena,int tam){
-        String cadVal;
-        cadVal=cadena;
-        int falta;
-        int i=0;
-        if((cadena.length())<tam){
-            falta=tam-cadena.length();
-            while(i<falta){
-                cadVal=cadVal+"-";
-                i++;
-            }            
-        }             
-        if((cadena.length())>tam){
-            cadVal=cadena.substring(0, tam);
-        }
-        
-        return cadVal;
-    }
-    
+    }     
     
 }

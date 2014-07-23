@@ -45,7 +45,7 @@ public class Application {
                     ap.listarContactos();
                     break;
             }
-        } while (opcion!=0);
+        } while (opcion != 0);
     }
 
     public void imprimeCabezera() {
@@ -63,8 +63,8 @@ public class Application {
         System.out.println("\t[5] Listar Contactos");
         System.out.println("\t[0] Salir");
     }
-    
-    public void nuevoContacto(){
+
+    public void nuevoContacto() {
         Contacto contacto;
         int nrr;
         contacto = Contacto.leerContactoPorConsola();
@@ -72,11 +72,11 @@ public class Application {
         System.out.println("Nrr: " + nrr);
         if (nrr == ArchivoContactos.NUMERO_REGISTROS) {
             Helper.notificar("El archivo de contactos esta lleno");
-        }else{
+        } else {
             ArchivoContactos.escribeContacto(nrr, contacto);
             Helper.notificar("Contacto registrado");
         }
-        
+
     }
 
     private void editarContacto() {
@@ -86,14 +86,14 @@ public class Application {
         contacto = null;
         nombre = Helper.leerCadena("Nombre: ");
         nrr = ArchivoContactos.obtenerNRR(nombre);
-        
+
         if (nrr == -1) {
             Helper.notificar("No se encontro el registro");
-        }else{
+        } else {
             contacto = ArchivoContactos.obtenerContacto(nombre);
-            
+
         }
-        
+
     }
 
     public void eliminarContacto() {
@@ -103,13 +103,13 @@ public class Application {
         contacto = null;
         nombre = Helper.leerCadena("Nombre: ");
         nrr = ArchivoContactos.obtenerNRR(nombre);
-        
+
         if (nrr == -1) {
             Helper.notificar("No se encontro el registro");
-        }else{
+        } else {
             contacto = new Contacto();
             ArchivoContactos.escribeContacto(nrr, contacto);
-            //falta el codigo de carlos :v
+            Helper.notificar("Se elimino registro");
         }
     }
 
@@ -122,13 +122,36 @@ public class Application {
         nrr = ArchivoContactos.obtenerNRR(nombre);
         if (nrr == -1) {
             Helper.notificar("No se encontro el registro");
-        }else{
+        } else {
             contacto = ArchivoContactos.leerContacto(nrr);
-            Helper.notificar(contacto.toString());
+            mostrarContacto(contacto);
         }
     }
 
     public void listarContactos() {
-        Helper.notificar("Se implementara proximamente");
+        Contacto c;
+        System.out.println("+--------------------+---------+");
+        System.out.println("|       Nombre       | Telefono|");
+        System.out.println("+--------------------+---------+");
+        for (int i = 0; i < ArchivoContactos.NUMERO_REGISTROS; i++) {
+            c = ArchivoContactos.leerContacto(i);
+            if (!c.getNombre().trim().equals("")) {
+                System.out.printf("|%20s|%9s|\n", c.getNombre(), c.getTelefonos()[0]);
+                System.out.printf("|%20s|%9s|\n", " ", c.getTelefonos()[1]);
+                System.out.printf("|%20s|%9s|\n", " ", c.getTelefonos()[2]);
+                System.out.println("+--------------------+---------+");
+            }
+        }
+    }
+
+    public void mostrarContacto(Contacto con) {
+        System.out.println("+--------------------+---------+");
+        System.out.println("|       Nombre       | Telefono|");
+        System.out.println("+--------------------+---------+");
+        System.out.printf("|%20s|%9s|\n", con.getNombre(), con.getTelefonos()[0]);
+        System.out.printf("|%20s|%9s|\n", " ", con.getTelefonos()[1]);
+        System.out.printf("|%20s|%9s|\n", " ", con.getTelefonos()[2]);
+        System.out.println("+--------------------+---------+");
+
     }
 }    

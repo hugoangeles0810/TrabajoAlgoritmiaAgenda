@@ -71,6 +71,7 @@ public class ArchivoContactos {
     public static Contacto leerContacto(int nrr) {
         Contacto contacto;
         String nombre, tel1, tel2, tel3;
+        contacto = null;
         try {
             flujoInputOutput.seek(TAMAÑO_REGISTRO * nrr);
             nombre = leerCadena(20);
@@ -80,7 +81,7 @@ public class ArchivoContactos {
             String telefonos[] = {tel1, tel2, tel3};
             contacto = new Contacto(nombre, telefonos);
         } catch (IOException ex) {
-            contacto = null;
+            ex.printStackTrace();
             Helper.notificar("Error al manipular el archivo");
         }
         return contacto;
@@ -89,8 +90,11 @@ public class ArchivoContactos {
     public static int generarNRR(Contacto con) {
         int nrr;
         nrr = con.hashCode();
+        System.out.println("Existe colision: " + existeColision(nrr));
         if (existeColision(nrr)) {
+            System.out.println("Entro a tratar colision");
             nrr = tratarColision(nrr);
+            System.out.println("SAlio de tratar colision");
         }
         return nrr;
     }
@@ -111,7 +115,7 @@ public class ArchivoContactos {
         int nuevoNRR, i;
         nuevoNRR = 0;
         i = nrr + 1;
-        while (!existeColision(i)) {
+        while (existeColision(i)) {
             if (i == nrr) {
                 i = TAMAÑO_REGISTRO;
                 break;
@@ -122,6 +126,7 @@ public class ArchivoContactos {
             }
         }
         nuevoNRR = i;
+        System.out.println("Nuevo nrr");
         return nuevoNRR;
     }
 

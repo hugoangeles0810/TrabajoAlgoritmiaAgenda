@@ -64,7 +64,7 @@ public class Contacto {
         //token = new StringTokenizer(telefonos, " ");
        // String arrayTelefonos[] = {token.nextToken(), token.nextToken(), token.nextToken()};
         String arrayTelefonos[] = {telefono1,telefono2,telefono3};
-        contacto = new Contacto(nombre, arrayTelefonos);
+        contacto = new Contacto(nombre, arrayTelefonos);        
         return contacto;
     }
 

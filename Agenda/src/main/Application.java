@@ -45,7 +45,7 @@ public class Application {
                     ap.listarContactos();
                     break;
             }
-        } while (opcion!=0);
+        } while (opcion!=0);        
     }
 
     public void imprimeCabezera() {
@@ -82,15 +82,35 @@ public class Application {
     private void editarContacto() {
         int nrr;
         String nombre;
+        String edicion;
         Contacto contacto;
         contacto = null;
         nombre = Helper.leerCadena("Nombre: ");
         nrr = ArchivoContactos.obtenerNRR(nombre);
         
         if (nrr == -1) {
-            Helper.notificar("No se encontro el registro");
+            Helper.notificar("No se encontró el registro");
         }else{
-            contacto = ArchivoContactos.obtenerContacto(nombre);
+            contacto = ArchivoContactos.leerContacto(nrr);
+            
+            System.out.println("Editando Teléfonos del Contacto......");
+            System.out.println("Para Eliminar Tecle 'E' ");
+            
+            edicion=Helper.leerCadena("Telefono 1:: "+contacto.getTelefonos()[0]+"----> Nueva Edicion::");
+            if(!edicion.equals("")&&!edicion.equals("E")) contacto.getTelefonos()[0]=edicion;
+            if(edicion.equals("E"))contacto.getTelefonos()[0]="         ";
+            
+            edicion=Helper.leerCadena("Telefono 2:: "+contacto.getTelefonos()[1]+"----> Nueva Edicion::");
+            if(!edicion.equals("")&&!edicion.equals("E")) contacto.getTelefonos()[1]=edicion;
+            if(edicion.equals("E"))contacto.getTelefonos()[1]="         ";
+            
+            edicion=Helper.leerCadena("Telefono 3:: "+contacto.getTelefonos()[2]+"----> Nueva Edicion::");
+            if(!edicion.equals("")&&!edicion.equals("E")) contacto.getTelefonos()[2]=edicion;
+            if(edicion.equals("E"))contacto.getTelefonos()[2]="         ";
+            
+            ArchivoContactos.escribeContacto(nrr, contacto);
+            
+            Helper.notificar("- -Se editaron teléfonos del contacto - -");
             
         }
         
@@ -121,7 +141,7 @@ public class Application {
         nombre = Helper.leerCadena("Nombre: ");
         nrr = ArchivoContactos.obtenerNRR(nombre);
         if (nrr == -1) {
-            Helper.notificar("No se encontro el registro");
+            Helper.notificar("No se encontró el registro");
         }else{
             contacto = ArchivoContactos.leerContacto(nrr);
             Helper.notificar(contacto.toString());

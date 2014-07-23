@@ -29,7 +29,7 @@ public class ArchivoContactos {
         try {
             flujoInputOutput = new RandomAccessFile(PATH + NOMBRE_ARCHIVO, "rw");
         } catch (FileNotFoundException ex) {
-            Helper.notificar("No se encontro el archivo de contactos");
+            Helper.notificar("No se encontró el archivo de contactos");
         }
     }
 

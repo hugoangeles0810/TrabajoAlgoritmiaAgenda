@@ -45,7 +45,7 @@ public class Application {
                     ap.listarContactos();
                     break;
             }
-        } while (opcion!=0);        
+        } while (opcion != 0);
     }
 
     public void imprimeCabezera() {

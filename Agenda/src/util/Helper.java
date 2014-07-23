@@ -108,9 +108,9 @@ public class Helper {
     }
 
     public static void notificar(String msg) {
-        System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------------------------------------");
         System.out.println(msg);
-        System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------------------------------------");
     }
     
     public static String formateaCadenaConEspacios(String cadena,int tam){
